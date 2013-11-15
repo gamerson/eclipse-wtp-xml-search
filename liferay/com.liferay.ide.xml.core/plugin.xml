@@ -94,19 +94,19 @@
    <extension
          point="org.eclipse.wst.xml.search.core.querySpecifications">
         <querySpecification id="liferay.liferayportletxml.querySpecification" 
-        				    class="com.liferay.ide.xml.internal.search.LiferyPortletQuerySpecification" />
+        				    class="com.liferay.ide.xml.core.search.LiferyPortletQuerySpecification" />
    </extension>
    
    <extension
          point="org.eclipse.wst.xml.search.core.resourceQuerySpecifications">
         <querySpecification id="liferay.webresources.html.querySpecification" 
-        				    class="com.liferay.ide.xml.internal.search.HTMLResourcesQuerySpecification" />
+        				    class="com.liferay.ide.xml.core.search.HTMLResourcesQuerySpecification" />
         <querySpecification id="liferay.webresources.css.querySpecification" 
-        				    class="com.liferay.ide.xml.internal.search.CSSResourcesQuerySpecification" />        				    
+        				    class="com.liferay.ide.xml.core.search.CSSResourcesQuerySpecification" />        				    
         <querySpecification id="liferay.webresources.js.querySpecification" 
-        				    class="com.liferay.ide.xml.internal.search.JSResourcesQuerySpecification" />  
+        				    class="com.liferay.ide.xml.core.search.JSResourcesQuerySpecification" />  
 		<querySpecification id="liferay.webresources.image.querySpecification" 
-        				    class="com.liferay.ide.xml.internal.search.ImageResourcesQuerySpecification" /> 
+        				    class="com.liferay.ide.xml.core.search.ImageResourcesQuerySpecification" /> 
    </extension>		      
    		
 </plugin>
