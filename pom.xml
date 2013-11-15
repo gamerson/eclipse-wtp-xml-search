@@ -7,13 +7,14 @@
 	<packaging>pom</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<tycho-version>0.17.0</tycho-version>
+		<tycho-version>0.19.0</tycho-version>
 	</properties>
 	<modules>
 		<module>core</module>
 		<module>jetty</module>
 		<module>struts2</module>
 		<module>web</module>
+		<module>liferay</module>
 		<module>update-site</module>
 	</modules>
 	<dependencies>
