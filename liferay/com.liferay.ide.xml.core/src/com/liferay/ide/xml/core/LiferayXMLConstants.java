@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Angelo ZERR.
+ * Copyright (c) 2013-2014 Angelo ZERR.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,14 @@
  *******************************************************************************/
 package com.liferay.ide.xml.core;
 
-public interface WebXMLConstants {
+/**
+ * Liferay XML descriptors constants.
+ *
+ */
+public interface LiferayXMLConstants {
 
-	String STRUTS2_CONFIG_CONTENT_TYPE = "org.apache.struts2.ide.contenttype.struts2ConfigFile";
+	String PORTLET_XML_CONTENT_TYPE = "com.liferay.ide.portlet.core.portletxml";
+	String LIFERAY_PORTLET_XML_CONTENT_TYPE = "com.liferay.ide.portlet.core.liferayportletxml";
+	String LIFERAY_DISPLAY_XML_CONTENT_TYPE = "com.liferay.ide.portlet.core.liferaydisplayxml";
 
-	// XML Attributes
-	String NAME_ATTR = "name";
-	String CLASS_ATTR = "class";
-	String ABSTRACT_ATTR = "abstract";
-	String DEFAULT_ATTR = "default";
 }

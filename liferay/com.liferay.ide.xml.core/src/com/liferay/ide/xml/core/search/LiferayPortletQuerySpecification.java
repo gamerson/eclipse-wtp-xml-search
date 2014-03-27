@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Angelo ZERR.
+ * Copyright (c) 2013-2014 Angelo ZERR.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,20 +10,23 @@
  *******************************************************************************/
 package com.liferay.ide.xml.core.search;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.wst.xml.search.core.resource.IURIResolver;
+import org.eclipse.wst.xml.search.core.queryspecifications.requestor.IXMLSearchRequestor;
 
-public class JSResourcesQuerySpecification extends
-		AbstractWebResourcesQuerySpecification {
+/**
+ * Query specification to search liferay-portlet.xml descriptors.
+ *
+ */
+public class LiferayPortletQuerySpecification extends
+		AbstractWebInfQuerySpecification {
 
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see
-	 * org.eclipse.wst.xml.search.core.resource.IURIResolverProvider#getURIResolver
-	 * (org.eclipse.core.resources.IFile, java.lang.Object)
+	 * @see org.eclipse.wst.xml.search.core.resource.IResourceRequestorProvider#
+	 * getRequestor()
 	 */
-	public IURIResolver getURIResolver(IFile file, Object selectedNode) {
-		return JSResourceURIResolver.INSTANCE;
+	public IXMLSearchRequestor getRequestor() {
+		return LiferayPortletSearchRequestor.INSTANCE;
 	}
+
 }

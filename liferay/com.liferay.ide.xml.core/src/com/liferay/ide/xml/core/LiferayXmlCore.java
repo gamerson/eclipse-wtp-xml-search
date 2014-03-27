@@ -15,11 +15,8 @@
 
 package com.liferay.ide.xml.core;
 
-import java.net.URL;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -95,9 +92,9 @@ public class LiferayXmlCore extends AbstractUIPlugin
         super.start( context );
         plugin = this;
 
-        URL baseIconsURL = getBundle().getEntry("icons/");
-        ImageDescriptor servletImage = ImageDescriptor.createFromURL(new URL(
-                baseIconsURL, "servlet.gif"));
+//        URL baseIconsURL = getBundle().getEntry("icons/");
+//        ImageDescriptor servletImage = ImageDescriptor.createFromURL(new URL(
+//                baseIconsURL, "servlet.gif"));
     }
 
     /*

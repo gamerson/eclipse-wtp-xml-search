@@ -4,8 +4,8 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:      
+ *
+ * Contributors:
  *     Angelo Zerr <angelo.zerr@gmail.com> - initial API and implementation
  *******************************************************************************/
 package com.liferay.ide.xml.core.search;
@@ -18,7 +18,7 @@ public class ImageResourcesQuerySpecification extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.eclipse.wst.xml.search.core.resource.IURIResolverProvider#getURIResolver
 	 * (org.eclipse.core.resources.IFile, java.lang.Object)
