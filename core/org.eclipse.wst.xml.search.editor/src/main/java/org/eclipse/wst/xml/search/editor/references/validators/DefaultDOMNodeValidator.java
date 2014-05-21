@@ -13,6 +13,8 @@ package org.eclipse.wst.xml.search.editor.references.validators;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.ui.internal.reconcile.validator.AnnotationInfo;
 import org.eclipse.wst.sse.ui.internal.reconcile.validator.IncrementalReporter;
@@ -22,10 +24,13 @@ import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMNode;
 import org.eclipse.wst.xml.search.core.util.DOMUtils;
 import org.eclipse.wst.xml.search.editor.internal.Trace;
+import org.eclipse.wst.xml.search.editor.internal.references.XMLReferenceToJava;
 import org.eclipse.wst.xml.search.editor.references.IXMLReference;
 import org.eclipse.wst.xml.search.editor.references.IXMLReferenceTo;
 import org.eclipse.wst.xml.search.editor.references.IXMLReferenceToExpression;
+import org.eclipse.wst.xml.search.editor.references.IXMLReferenceToJava;
 import org.eclipse.wst.xml.search.editor.searchers.IXMLSearcher;
+import org.eclipse.wst.xml.search.editor.searchers.java.XMLSearcherForJava;
 import org.eclipse.wst.xml.search.editor.validation.IMultiValidationResult;
 import org.eclipse.wst.xml.search.editor.validation.IValidationResult;
 import org.eclipse.wst.xml.search.editor.validation.LocalizedMessage;
@@ -136,20 +141,54 @@ public class DefaultDOMNodeValidator implements IXMLReferenceValidator {
 		}
 
 		int nbElements = getNbElements(reference, file, node);
-		if (nbElements == 1) {
-			return;
+		if (nbElements != 1) {
+		    String textContent = DOMUtils.getNodeValue(node);
+	        String messageText = getMessageText(reference, nbElements, node,
+	                textContent);
+	        if (messageText != null) {
+	            int severity = getSeverity(reference, nbElements, file, node);
+	            int startOffset = getStartOffset(node);
+	            int length = textContent.trim().length() + 2;
+	            addMessage(node, file, validator, reporter, batchMode, messageText,
+	                severity, startOffset, length);
+	        }
 		}
-		String textContent = DOMUtils.getNodeValue(node);
-		String messageText = getMessageText(reference, nbElements, node,
-				textContent);
-		if (messageText == null) {
-			return;
+		
+		// validate java type hierarchy
+		for(IXMLReferenceTo referenceTo : reference.getTo()) {
+		    if( referenceTo instanceof XMLReferenceToJava ) {
+                IType[] superTypes = ((IXMLReferenceToJava)referenceTo).getExtends(node, file);
+                if(superTypes != null && superTypes.length >0) {
+                    XMLSearcherForJava searcher = (XMLSearcherForJava)referenceTo.getSearcher();
+                    if(searcher != null ){
+                        try
+                        {
+                            IValidationResult validationResult = searcher.searchForHirerchyValidation(
+                                node, DOMUtils.getNodeValue(node), -1, -1, file, referenceTo);
+                            if (validationResult == IValidationResult.NOK) {
+                                String superTypeNames = "";
+                                for (IType type: superTypes) {
+                                    superTypeNames += type.getFullyQualifiedName() + ", ";
+                                }
+                                superTypeNames = superTypeNames.trim().replaceAll( ",$", "" );
+                                String textContent = DOMUtils.getNodeValue(node);
+                                String messageText =
+                                    ValidatorUtils.getTypeHierarchyIncorrectMessage(textContent, superTypeNames );
+                                int severity = getSeverity(reference, validationResult.getNbElements(), file, node);
+                                int startOffset = getStartOffset(node);
+                                int length = textContent.trim().length() + 2;
+                                addMessage(node, file, validator, reporter, batchMode, messageText, severity,
+                                    startOffset, length);
+                            }
+                        }
+                        catch( JavaModelException e )
+                        {
+                            Trace.trace(Trace.SEVERE, e.getMessage(), e);
+                        }
+                    }
+                }
+		    }
 		}
-		int severity = getSeverity(reference, nbElements, file, node);
-		int startOffset = getStartOffset(node);
-		int length = textContent.trim().length() + 2;
-		addMessage(node, file, validator, reporter, batchMode, messageText,
-				severity, startOffset, length);
 	}
 
 	private void addMessage(IDOMNode node, IFile file, IValidator validator,
