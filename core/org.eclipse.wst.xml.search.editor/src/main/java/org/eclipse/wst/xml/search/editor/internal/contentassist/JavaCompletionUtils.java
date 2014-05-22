@@ -276,21 +276,18 @@ public class JavaCompletionUtils {
 								&& Flags.isInterface(foundType.getFlags()))
 							accepted = true;
 						if (accepted) {
-							recordProposal(recorder,
-											JavaPluginImages
-													.get("org.eclipse.jdt.ui.class_obj.gif"),
-											10,
-											(new StringBuilder(String
-													.valueOf(foundType
-															.getElementName())))
-													.append(" - ")
-													.append(
-															foundType
-																	.getPackageFragment()
-																	.getElementName())
-													.toString(), foundType
-													.getFullyQualifiedName(),
-											foundType);
+						    String displayText = null;
+						    if( foundType.getPackageFragment().getElementName().equals( "" ) ){
+						        // handle the scenario where the class is in default package.
+						        displayText = (new StringBuilder(String.valueOf(foundType.getElementName()))).toString();
+						    }
+						    else{
+						        displayText = (new StringBuilder(String.valueOf(foundType.getElementName()))).
+                                   append(" - ").append(foundType.getPackageFragment().getElementName()).toString();
+						    }
+						    int refevance = 1000; // let the completion from wtp-xml search at the top of the list
+							recordProposal(recorder, JavaPluginImages.get("org.eclipse.jdt.ui.class_obj.gif"),refevance,
+							    displayText, foundType.getFullyQualifiedName(),foundType);
 							sortMap.put(foundType.getFullyQualifiedName(),
 									foundType);
 						}
