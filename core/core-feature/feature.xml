@@ -25,14 +25,20 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.wst.xml.search.editor"
+         id="org.eclipse.wst.xml.search.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.wst.xml.search.ui"
+         id="org.eclipse.wst.xml.search.editor.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   <plugin
+         id="org.eclipse.wst.xml.search.editor.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
