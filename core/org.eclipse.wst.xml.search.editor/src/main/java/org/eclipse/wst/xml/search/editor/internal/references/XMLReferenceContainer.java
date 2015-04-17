@@ -71,7 +71,7 @@ public class XMLReferenceContainer {
 			return getXMLReferences(node, key, direction);
 		case Node.ELEMENT_NODE:
 		case Node.TEXT_NODE:
-			return getXMLReferences(node, TEXT_KEY, direction);
+            return allReferences;
 		}
 		return null;
 	}

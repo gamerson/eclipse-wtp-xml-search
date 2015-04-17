@@ -94,7 +94,7 @@ public class XMLReferencesContentAssistUtils {
 		}
 		if (node.getNodeType() == Node.ELEMENT_NODE) {
 			IDOMNode firstChild = (IDOMNode) node.getFirstChild();
-			return getDOMText(firstChild);
+			return firstChild == null ? null : getDOMText( firstChild );
 		}
 		return null;
 	}
