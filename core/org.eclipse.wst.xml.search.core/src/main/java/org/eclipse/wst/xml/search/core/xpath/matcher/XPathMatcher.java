@@ -226,6 +226,11 @@ public class XPathMatcher extends ArrayList<XPathElementMatcher> {
 				}
 			}
 			testNode = testNode.getParentNode();
+			if (testNode.getNodeName()=="#document") {
+				return true;
+			}
+			
+			
 		}
 		return true;
 	}
